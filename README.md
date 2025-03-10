@@ -4,6 +4,12 @@
 
 This project observes which files are opened when using file input/output APIs.
 
+## Usage
+
+```shell
+$ python3 fdump.py "your.package.name"
+```
+
 ## How to work
 
 High-level classes (File, FileOutputStream, BufferedReader, etc.) → Low-level system calls (open(), read(), write())
