@@ -1,30 +1,31 @@
 import frida
 import sys
 
-pathToBeCloselyExamined = [
+focus_path = [
     "/data/user/0/",
     "/data/app/"
 ]
 
-focus_color = '\033[93m'
-normal_color = '\033[36m'
+color_focus = '\033[93m'
+color_normal = '\033[36m'
 
-init_color = '\033[0m'
-bold_color = '\033[1m'
+color_init = '\033[0m'
+color_bold = '\033[1m'
 
 def is_target_path(path):
-    return any(path.startswith(prefix) for prefix in pathToBeCloselyExamined)
+    return any(path.startswith(prefix) for prefix in focus_path)
 
 def on_message(message, data):
     if message["type"] == "send":
         path = str(message["payload"])
-        print('[*] Attempt to open a file ({0}open={1}{2}{3})'.format(bold_color, focus_color if is_target_path(path) else normal_color, path, init_color))
+        print('[*] Attempt to open a file ({0}open={1}{2}{3})'.format(
+            color_bold, color_focus if is_target_path(path) else color_normal, path, color_init))
     else:
         print(message)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python sample.py \"package_name\"")
+        print(f"Usage: python {sys.argv[0]} \"package_name\"")
         sys.exit(1)
     package_name = sys.argv[1]
     device = frida.get_usb_device()
