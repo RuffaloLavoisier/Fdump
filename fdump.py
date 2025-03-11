@@ -6,20 +6,30 @@ focus_path = [
     "/data/app/"
 ]
 
+target_path = [
+    "/data/user/0/",
+    "/data/app/",
+    "/system/"
+]
+
 color_focus = '\033[93m'
 color_normal = '\033[36m'
 
 color_init = '\033[0m'
 color_bold = '\033[1m'
 
-def is_target_path(path):
+def is_focus_path(path):
     return any(path.startswith(prefix) for prefix in focus_path)
+
+def is_target_path(path):
+    return any(path.startswith(prefix) for prefix in target_path)
 
 def on_message(message, data):
     if message["type"] == "send":
         path = str(message["payload"])
-        print('[*] Attempt to open a file ({0}open={1}{2}{3})'.format(
-            color_bold, color_focus if is_target_path(path) else color_normal, path, color_init))
+        if is_target_path(path):
+            print('[*] Attempt to open a file ({0}open={1}{2}{3})'.format(
+                color_bold, color_focus if is_focus_path(path) else color_normal, path, color_init))
     else:
         print(message)
 
