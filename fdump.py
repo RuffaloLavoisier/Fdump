@@ -23,7 +23,22 @@ def on_message(message, data):
     else:
         print(message)
 
+def printLogo():
+    print(r'''
+ ________              ________  ___  ___  _____ ______   ________   
+|\  _____\            |\   ___ \|\  \|\  \|\   _ \  _   \|\   __  \  
+\ \  \__/ ____________\ \  \_|\ \ \  \\\  \ \  \\\__\ \  \ \  \|\  \ 
+ \ \   __\\____________\ \  \ \\ \ \  \\\  \ \  \\|__| \  \ \   ____\
+  \ \  \_\|____________|\ \  \_\\ \ \  \\\  \ \  \    \ \  \ \  \___|
+   \ \__\                \ \_______\ \_______\ \__\    \ \__\ \__\   
+    \|__|                 \|_______|\|_______|\|__|     \|__|\|__|   
+          
+
+    * Author: Ruffalo Lavoisier (https://github.com/RuffaloLavoisier)
+    * Version: 1.0.0''')
+    print();
 if __name__ == "__main__":
+    printLogo()
     if len(sys.argv) < 2:
         print(f"Usage: python {sys.argv[0]} \"package_name\"")
         sys.exit(1)
