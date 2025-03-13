@@ -18,16 +18,19 @@ color_normal = '\033[36m'
 color_init = '\033[0m'
 color_bold = '\033[1m'
 
+# Check if the path is in the focus_path
 def is_focus_path(path):
     return any(path.startswith(prefix) for prefix in focus_path)
 
+# Check if the path is in the target_path
 def is_target_path(path):
     return any(path.startswith(prefix) for prefix in target_path)
 
 def on_message(message, data):
     if message["type"] == "send":
         path = str(message["payload"])
-        if is_target_path(path):
+        # Check if the path is in the target_path (E.g., /data/user/0/ or /data/app/ it will print it, if the target_path is empty, it will print all the paths)
+        if is_target_path(path) or len(target_path) == 0:
             print('[*] Attempt to open a file ({0}open={1}{2}{3})'.format(
                 color_bold, color_focus if is_focus_path(path) else color_normal, path, color_init))
     else:
